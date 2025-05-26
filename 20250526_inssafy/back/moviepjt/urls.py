@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('movies.urls')), #20250526 오후 수정
     path('api/v1/', include('articles.urls')),
     path('api/v1/movies/',   include('movies.urls')),
     path('accounts/', include('dj_rest_auth.urls')),

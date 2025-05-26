@@ -10,13 +10,13 @@
         <span class="fs-2 me-2">🎬</span>
         <h2 class="m-0" style="color: #4B0082;">Hero Match Test</h2>
       </div>
-  <router-link
-    class="btn"
-    style="background-color: #800080; color: #fff; text-decoration:none;"
-    :to="{ name: 'HeroTestView' }"
-  >
-    TEST 하기
-  </router-link>
+      <router-link
+        class="btn"
+        style="background-color: #800080; color: #fff; text-decoration:none;"
+        :to="{ name: 'HeroTestView' }"
+      >
+        TEST 하기
+      </router-link>
     </div>
 
     <!-- Top 10 Trending Movies -->
@@ -37,14 +37,14 @@
       <MovieCarousel v-else :movies="trending" />
     </div>
 
-    <!-- Categories (생략: 기존 코드 그대로) -->
+    <!-- Categories (기존 코드 그대로) -->
     <section>
       <h3>📂 Categories</h3>
       <div class="row g-3">
         <div
           v-for="g in GENRES"
           :key="g.id"
-          class="col-6 col-md-3  "
+          class="col-6 col-md-3"
         >
           <router-link
             class="text-decoration-none"
@@ -60,6 +60,12 @@
         </div>
       </div>
     </section>
+
+    <!-- ─────────── 여기부터 미니게임 섹션 ─────────── -->
+    <section class="mt-5">
+      <h3>🎮 Mini Games</h3>
+      <MiniGamesHub />
+    </section>
   </div>
 </template>
 
@@ -67,6 +73,9 @@
 import { ref, onMounted } from 'vue'
 import MovieCarousel from '@/components/MovieCarousel.vue'
 import { fetchTrending, GENRES } from '@/api/movie'
+
+// ➊ 방금 만든 미니게임 허브 컴포넌트
+import MiniGamesHub from '@/components/MiniGamesHub.vue'
 
 const trending = ref([])
 const isLoadingTrending = ref(false)
@@ -83,8 +92,6 @@ onMounted(async () => {
 .main-wrap {
   /* 화면 전체 높이에서 navbar(56px)랑 상단 여백(…)을 뺀 최소 높이 */
   min-height: calc(100vh - 56px);
-  /* 필요하면 상단/하단 패딩 조정 */
   padding-bottom: 2rem;
 }
-
 </style>

@@ -119,3 +119,19 @@ class MovieLikeUsers(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ❤ {self.movie.original_title}"
+
+
+#20250526 수정
+class TypingRecord(models.Model):
+    text = models.TextField()
+    time = models.FloatField()    # 기록된 시간(초)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='typing_records'
+    )
+    def __str__(self):
+        return f"{self.text[:20]}… — {self.time}s"

@@ -3,7 +3,7 @@
 import requests
 from rest_framework.views    import APIView
 from rest_framework.response import Response
-from rest_framework          import status
+from rest_framework          import status,generics
 
 from .services.tmdb    import _get, get_trending_movies
 from .serializers      import TMDBMovieSerializer
@@ -13,6 +13,10 @@ from .models           import Genre
 from rest_framework import viewsets
 from .models import Movie
 from .serializers import MovieSerializer
+
+#20250526_저녁 수정
+from .models import TypingRecord
+from .serializers import TypingRecordSerializer
 
 
 class TMDBMovieListAPI(APIView):
@@ -105,3 +109,16 @@ class MovieViewSet(viewsets.ModelViewSet):
         if genre_tmdb_id:
             qs = qs.filter(genres__tmdb_id=genre_tmdb_id)
         return qs
+
+
+#20250526수정_저녁
+class TypingRecordListCreate(generics.ListCreateAPIView):
+    # GET: 전체 레코드 중 time 오름차순으로 정렬한 상위 3개 반환
+    queryset = TypingRecord.objects.all().order_by('time')
+    serializer_class = TypingRecordSerializer
+
+    def get_queryset(self):
+        return super().get_queryset()[:3]
+        # ③ POST 시 request.user를 저장
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user if self.request.user.is_authenticated else None)
