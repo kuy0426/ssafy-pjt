@@ -1,0 +1,15 @@
+/* src/assets/css/fonts.css */
+@font-face {
+  font-family: 'Pretendard';
+  /* 가변(font-variation) 지원 범위 지정 */
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  /* woff2-variations 포맷으로 불러오기 */
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+}
+
+/* 전역 기본 폰트 설정 */
+html, body {
+  font-family: 'Pretendard', sans-serif;
+}
